@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Encuentra el Botón Oculto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+            margin: 10px;
+            background-color: purple;
+        }
+
+        .contenedor-juego {
+            background-color: orangered;
+            padding: 20px;
+            border-radius: 75px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .contenedor-botones {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+            background-color: purple;
+            border-radius: 25px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            width: 80px;
+            height: 40px;
+            background-color: greenyellow;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: yellowgreen;
+        }
+
+        #retroalimentacion {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-juego">
+        <h1>Encuentra el Botón Oculto</h1>
+        <p>Haz clic en el botón correcto para ganar</p>
+        <div class="contenedor-botones" id="contenedor-botones"></div>
+        <p id="retroalimentacion"></p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const numeroDeBotones = 10;
+            const indiceBotonOculto = Math.floor(Math.random() * numeroDeBotones);
+
+            for (let i = 0; i < numeroDeBotones; i++) {
+                $('#contenedor-botones').append(`<button class="boton-juego" data-indice="${i}">Botón ${i + 1}</button>`);
+            }
+
+            $('.boton-juego').click(function() {
+                const indiceBoton = $(this).data('indice');
+                if (indiceBoton === indiceBotonOculto) {
+                    $('#retroalimentacion').text('¡Correcto! Encontraste el botón oculto.');
+                    $('.boton-juego').prop('disabled', true);
+                } else {
+                    $('#retroalimentacion').text('Incorrecto. Intenta de nuevo.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
